@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import Header from './components/Header/Header'
+import HomePage from './components/Home.jsx';
 
 import './App.css'
 
@@ -39,6 +40,7 @@ function App() {
   return (
     <>
       <Header actions={HEADER_ACTIONS}>Computer Science Blog</Header>  
+      <HomePage />
     </>
   )
 }
