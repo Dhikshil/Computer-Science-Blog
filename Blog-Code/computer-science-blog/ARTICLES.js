@@ -78,5 +78,5 @@ export default [
     desc: "A braincomputer interface decodes in near-real time the imagined speech of people who have difficulty enunciating words.",
     imgLong: BusinessAiLong,
     imgShort: BusinessAiShort,  
-}
+},
 ]
