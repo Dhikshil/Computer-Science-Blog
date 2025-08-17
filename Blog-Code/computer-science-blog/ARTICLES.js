@@ -79,4 +79,15 @@ export default [
     imgLong: BusinessAiLong,
     imgShort: BusinessAiShort,  
 },
+  {
+    name: "AI Is Changing How We Work",
+    id: 7,
+    date: "2023-01-15",
+    type: ["ai", "business"],
+    author: "Laura Kim",
+    content: "Artificial intelligence has moved far beyond research labs and into daily workflows. From document summarization to predictive analytics, companies now rely on AI to reduce overhead and make faster decisions. Early adopters report gains in productivity but also face challenges integrating these tools with legacy systems. Concerns around bias, transparency, and ethical deployment persist, prompting both government bodies and private companies to publish guidelines for responsible AI use. The next five years are expected to bring more adaptive systems that learn directly from workplace environments without extensive retraining, further accelerating adoption.",
+    desc: "A braincomputer interface decodes in near-real time the imagined speech of people who have difficulty enunciating words.",
+    imgLong: AiLong,
+    imgShort: AiShort,
+},
 ]

@@ -39,8 +39,8 @@ export default function HomePage() {
               <img src={article.imgShort} className='h-24 object-cover' />
               <div className='flex flex-col flex-1 justify-between'>
                 <div>
-                  <h2>{article.name}</h2>
-                  <p className='text-[0.65rem]'>{article.desc}</p>
+                  <h2 className='mb-1'>{article.name}</h2>
+                  <p className='text-[0.65rem] mb-3'>{article.desc}</p>
                 </div>
                 <div className='mt-auto'>
                   <p className='text-[0.7rem]'>{article.author} | {article.date}</p>
