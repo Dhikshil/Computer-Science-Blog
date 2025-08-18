@@ -29,7 +29,6 @@ export default function HomePage() {
           )
         } else if (article.id > ARTICLES.length - 6) {
           sectionArticles.push(article)
-          {console.log(sectionArticles)}
         }
       })}
       <div className='flex items-stretch'>

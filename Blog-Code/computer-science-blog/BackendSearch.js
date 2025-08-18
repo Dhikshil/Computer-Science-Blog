@@ -1,14 +1,10 @@
 import ARTICLES from './ARTICLES.js'
 
-possibleArticles = [];
+export default function searchArticles(query) {
+  query = query.toLowerCase();
 
-function searchArticles(name) {
-    ARTICLES.map((article) => {
-        if (article.name.toLowerCase().includes(name)) {
-            possibleArticles.push(article.id)
-        }
-    });
-    return (possibleArticles);
+  return ARTICLES.filter(article =>
+    article.name.toLowerCase().trim().includes(query)
+  );
 };
 
-export default searchArticles;
