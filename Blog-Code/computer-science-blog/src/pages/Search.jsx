@@ -5,7 +5,7 @@ import searchArticles from '../../BackendSearch.js'
 
 import NotFound from '../assets/NoImageFound.png'
 
-import ArticlesMap from "./articlesMap.jsx";
+import ArticlesMap from "../components/articlesMap.jsx";
 
 const searchIcon = <svg viewBox="-0.5 -0.5 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" id="Search--Streamline-Iconoir" height="16" width="16">
                         <path d="m11.26925 11.26925 3.015375 3.015375" stroke="#fbfbfb" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"></path>
