@@ -7,7 +7,7 @@ export default function Footer() {
         <div className="flex gap-7 justify-between px-24 mb-16">
           {DATA.map((data) => {
             return (
-              <div className="flex flex-col mb- 3" key={data.name}>
+              <div className="flex flex-col mb- 3 text-left" key={data.name}>
                 <h3><b>{data.name}</b></h3>
                 {data.links.map((element) => {
                   return (
