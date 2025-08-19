@@ -31,25 +31,29 @@ export default function ArticlePage() {
                 <p>{article.content}</p>
                 <p className="text-[0.95rem] mt-3 text-gray-200">{article.author} | {article.date}</p>
             </section>
+            
             <p className="font-semibold text-[1.45rem]">COMMENTS</p> 
-            <section className="w-4/5 mx-auto rounded-xl py-3 bg-white/20">
+            <section className="mt-4">
+                
                 {article.comments.map((comment) => {
                     let starRatings = ratings;
                     for (let i = 0; i < comment.rating; i++) {
                         starRatings.push(<div key={i} className="mt-2">{starIcon}</div>)
                     }
                     return (
-                        <div className="mx-3 mb-3" key={comment.id}>
-                            <div className="flex justify-between">
-                                <p className="text-[1.25rem] font-bold">{comment.title}</p>
-                                <div className="flex">
-                                    {starRatings}
+                        <div className="w-4/5 mx-auto rounded-xl py-3 bg-white/20">
+                            <div className="mx-3 " key={comment.id}>
+                                <div className="flex justify-between">
+                                    <p className="text-[1.25rem] font-bold">{comment.title}</p>
+                                    <div className="flex">
+                                        {starRatings}
+                                    </div>
                                 </div>
-                            </div>
-                            <p className="m-3">{comment.comment}</p>
-                            <div className="flex text-[0.95rem] justify-between text-gray-300">
-                                <p>Shared by {USERS.find(user =>  user.id === comment.id).name}</p>
-                                <p>{comment.date}</p>
+                                <p className="m-3">{comment.comment}</p>
+                                <div className="flex text-[0.95rem] justify-between text-gray-300">
+                                    <p>Shared by {USERS.find(user =>  user.id === comment.id).name}</p>
+                                    <p>{comment.date}</p>
+                                </div>
                             </div>
                         </div>
                     )
