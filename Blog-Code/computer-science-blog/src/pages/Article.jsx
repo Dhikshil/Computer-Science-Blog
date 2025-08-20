@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom"
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 import ARTICLES from "../../ARTICLES.js";
 import USERS from '../../USERS.js'
@@ -29,36 +29,32 @@ export default function ArticlePage() {
     function formSubmit(event) {
         event.preventDefault();
 
-        if (inputCommentName.length < 5) {
+        if (
+            inputCommentName.current.value.length < 5 ||
+            inputCommentComment.current.value.length < 30 ||
+            inputCommentComment.current.value.length > 150 ||
+            inputCommentRating.current.value < 0 ||
+            inputCommentRating.current.value > 5
+        ) {
             return;
-        };
-        if (inputCommentComment.length < 30 || inputCommentComment.length > 150) {
-            return;
-        };
+        } else {
+            const newComment = {
+                title: inputCommentName.current.value,
+                id: 6,
+                comment: inputCommentComment.current.value,
+                rating: inputCommentRating.current.value,
+                date: '2-3-4',
+            };
 
-        if (inputCommentRating < 0 || inputCommentRating > 5) {
-            return;
-        };
-
-        const newComment = {
-            title: inputCommentName.current.value,
-            id: 6,
-            comment: inputCommentComment.current.value,
-            rating: inputCommentRating.current.value,
-            date: '2-3-4',
-        };
-
-        article.comments.push(newComment);
-
-        setNewComment(true);
+            article.comments.push(newComment);
 
             inputCommentName.current.value = "";
             inputCommentComment.current.value = "";
             inputCommentRating.current.value = "";
-        
-        setNewComment(false);
-    }
 
+            setNewComment(true);
+        }
+    }
     return(
         <main className="max-w-4xl mx-auto mt-8 text-left"> 
             <section className="my-8">
@@ -127,15 +123,16 @@ export default function ArticlePage() {
 
 
                 </form>
-
                 {article.comments.map((comment) => {
                     let starRatings = [...ratings];
                     for (let i = 0; i < comment.rating; i++) {
                         starRatings.push(<div key={i} className="mt-2">{starIcon}</div>)
                     }
-                    console.log(article.comments.length)
+                    if (newComment === true) {
+                        setNewComment(false);
+                    }
                     return (
-                        <div className="w-4/5 mx-auto rounded-xl py-3 bg-white/20" key={0}>
+                        <div className="w-4/5 mx-auto rounded-xl py-3 bg-white/20" key={article.comments.indexOf(comment)}>
                             <div className="mx-3">
                                 <div className="flex justify-between">
                                     <p className="text-[1.25rem] font-bold">{comment.title}</p>
@@ -145,7 +142,7 @@ export default function ArticlePage() {
                                 </div>
                                 <p className="m-3">{comment.comment}</p>
                                 <div className="flex text-[0.95rem] justify-between text-gray-300">
-                                    <p>Shared by {USERS.find(user =>  user.id === comment.id).name}</p>
+                                    <p>Shared by {USERS.find(user => user.id === comment.id).name}</p>
                                     <p>{comment.date}</p>
                                 </div>
                             </div>
