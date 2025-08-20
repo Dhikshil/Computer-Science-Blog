@@ -1,8 +1,10 @@
 import { useParams } from "react-router-dom"
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState } from "react";
 
 import ARTICLES from "../../ARTICLES.js";
-import USERS from '../../USERS.js'
+
+import DisplayComment from "../components/DisplayComments.jsx";
+import DisplayCommentForm from "../components/DisplayCommentForm.jsx";
 
 export default function ArticlePage() {
     const params = useParams();
@@ -11,14 +13,7 @@ export default function ArticlePage() {
 
     const article = ARTICLES[Number(params.articleId) - 1];
 
-    const starIcon = (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14" id="Star-1--Streamline-Core" height="14" width="14">
-        <desc>
-            Star 1 Streamline Icon: https://streamlinehq.com
-        </desc>
-        <g id="star-1--reward-rating-rate-social-star-media-favorite-like-stars">
-            <path id="Union" fill="#ffe22f" fill-rule="evenodd" d="M7 0.276855c-0.19843 0 -0.39272 0.056768 -0.55993 0.163603 -0.16508 0.10547 -0.29697 0.255388 -0.38055 0.432443L4.47196 4.07799c-0.00312 0.0063 -0.00611 0.01266 -0.00896 0.01909 -0.00071 0.00159 -0.00183 0.00298 -0.00324 0.00401 -0.00141 0.00103 -0.00306 0.00168 -0.0048 0.00187 -0.00609 0.00067 -0.01217 0.00146 -0.01823 0.00236l-3.495581 0.51786c-0.193204 0.01879 -0.377444 0.09129 -0.531759 0.20949 -0.159672 0.12231 -0.280454 0.28829 -0.3477142 0.47784 -0.06726016 0.18955 -0.0781133 0.39454 -0.0312442 0.59014 0.0466876 0.19483 0.1486564 0.37202 0.2936224 0.51027L2.88283 8.87974l-0.00004 0.00005 0.00587 0.00548c0.00365 0.00342 0.0064 0.00769 0.00798 0.01244 0.00158 0.00474 0.00195 0.00981 0.00107 0.01473l-0.00056 0.00327 -0.60974 3.56839 -0.00015 0.0009c-0.0335 0.1934 -0.01214 0.3923 0.06167 0.5741 0.07391 0.1822 0.19747 0.3399 0.3566 0.4553 0.15914 0.1153 0.34746 0.1837 0.54354 0.1973 0.19569 0.0136 0.39127 -0.0279 0.56457 -0.1197l0.00006 -0.0001 0.00099 -0.0005 3.14948 -1.6645c0.01129 -0.0049 0.0235 -0.0075 0.03585 -0.0075s0.02455 0.0026 0.03585 0.0075l3.14943 1.6645 0.0006 0.0003c0.1734 0.0921 0.3692 0.1337 0.565 0.12 0.1961 -0.0136 0.3844 -0.082 0.5436 -0.1973 0.1591 -0.1154 0.2827 -0.2731 0.3566 -0.4553 0.0738 -0.1818 0.0951 -0.3806 0.0617 -0.5739l-0.0002 -0.0011 -0.6097 -3.5684 -0.0006 -0.00326c-0.0009 -0.00492 -0.0005 -0.00999 0.0011 -0.01473 0.0015 -0.00474 0.0043 -0.00902 0.0079 -0.01244l0.0001 0.00005 0.0058 -0.00558 2.5588 -2.46885c0.1449 -0.13825 0.2469 -0.31542 0.2936 -0.51024 0.0468 -0.1956 0.036 -0.40059 -0.0313 -0.59014 -0.0672 -0.18955 -0.188 -0.35553 -0.3477 -0.47784 -0.1543 -0.1182 -0.3385 -0.1907 -0.5317 -0.20949l-3.49562 -0.51786c-0.00606 -0.0009 -0.01214 -0.00169 -0.01823 -0.00236 -0.00174 -0.00019 -0.0034 -0.00084 -0.00481 -0.00187 -0.00141 -0.00103 -0.00252 -0.00242 -0.00323 -0.00401 -0.00285 -0.00643 -0.00584 -0.01279 -0.00896 -0.01909L7.94048 0.872887C7.8569 0.695838 7.72501 0.545925 7.55994 0.440458 7.39272 0.333623 7.19843 0.276855 7 0.276855Z" clip-rule="evenodd" stroke-width="1"></path>
-        </g>
-    </svg>)
+
 
     const ratings = [];
 
@@ -69,86 +64,10 @@ export default function ArticlePage() {
             </section>
             
             <p className="font-semibold text-[1.45rem]">COMMENTS</p>
+            
             <section className="mt-4">
-                <form
-                    onSubmit={formSubmit}
-                    className="w-4/5 mx-auto rounded-xl p-6 bg-black/40 mb-10 space-y-4 shadow-lg"
-                >
-                    <div className="flex flex-col">
-                        <label htmlFor="title" className="mb-1 text-white font-semibold">
-                            Title
-                        </label>
-                        <input
-                            ref={inputCommentName}
-                            type="text"
-                            id="title"
-                            name="title"
-                            defaultValue=""
-                            className="p-2 rounded-md border border-gray-500 bg-black/20 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        />
-                    </div>
-                    <div className="flex flex-col">
-                        <label htmlFor="body" className="mb-1 text-white font-semibold">
-                            Your Opinion
-                        </label>
-                        <textarea
-                            ref={inputCommentComment}
-                            name="body"
-                            rows={5}
-                            defaultValue=""
-                            className="p-2 rounded-md border border-gray-500 bg-black/10 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        />
-                    </div>
-
-                    <div className="flex flex-col">
-                        <label htmlFor="rating" className="mb-1 text-white font-semibold">
-                            Rating
-                        </label>
-                        <div className="flex justify-between">
-                            <input
-                                ref={inputCommentRating}
-                                type="number"
-                                name="rating"
-                                defaultValue={0}
-                                className="p-2 w-24 rounded-md border border-gray-500 bg-black/10 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-                            />
-                            <button
-                                type="submit"
-                                className="px-4 py-2 bg-blue-500 text-white rounded-xl shadow hover:bg-blue-600 transition hover:text-gray-300"
-                            >
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-
-
-                </form>
-                {article.comments.map((comment) => {
-                    let starRatings = [...ratings];
-                    for (let i = 0; i < comment.rating; i++) {
-                        starRatings.push(<div key={i} className="mt-2">{starIcon}</div>)
-                    }
-                    if (newComment === true) {
-                        setNewComment(false);
-                    }
-                    return (
-                        <div className="w-4/5 mx-auto rounded-xl py-3 bg-white/20" key={article.comments.indexOf(comment)}>
-                            <div className="mx-3">
-                                <div className="flex justify-between">
-                                    <p className="text-[1.25rem] font-bold">{comment.title}</p>
-                                    <div className="flex">
-                                        {starRatings}
-                                    </div>
-                                </div>
-                                <p className="m-3">{comment.comment}</p>
-                                <div className="flex text-[0.95rem] justify-between text-gray-300">
-                                    <p>Shared by {USERS.find(user => user.id === comment.id).name}</p>
-                                    <p>{comment.date}</p>
-                                </div>
-                            </div>
-                        </div>
-                    )
-                })}
+                <DisplayCommentForm formSubmit={formSubmit} inputCommentName={inputCommentName} inputCommentComment={inputCommentComment} inputCommentRating={inputCommentRating} />
+                <DisplayComment article={article} newComment={newComment} setNewComment={setNewComment} />
             </section>
         </main>
     );
