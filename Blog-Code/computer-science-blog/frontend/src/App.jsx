@@ -4,10 +4,10 @@ import ArticlePage from "./pages/Article.jsx";
 import HomePage from './pages/Home.jsx';
 import SearchPage from './pages/Search.jsx';
 import RootLayout from "./pages/Root.jsx";
-
+import LoginPage from "./pages/Login.jsx";
+import SignupPage from "./pages/Signup.jsx";
 
 import './App.css'
-
 
 const router = createBrowserRouter([
   {
@@ -17,6 +17,8 @@ const router = createBrowserRouter([
       {index: true, element: <HomePage />},
       {path: 'search', element: <SearchPage />},
       {path: 'search/:articleId', element: <ArticlePage />},
+      {path: 'login', element: <LoginPage />},
+      {path: 'signup', element: <SignupPage />},
     ]
   }
 ])
