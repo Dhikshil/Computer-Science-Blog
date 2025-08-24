@@ -1,6 +1,5 @@
 import { API_BASE_URL, getAuthToken, createHeaders } from "../config/app";
 
-// Register new user
 export const registerUser = async (userData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/register`, {
@@ -18,7 +17,6 @@ export const registerUser = async (userData) => {
     const data = await response.json();
     
     if (data.success) {
-      // Store token in localStorage
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       return data;
@@ -29,7 +27,6 @@ export const registerUser = async (userData) => {
   }
 };
 
-// Login user
 export const loginUser = async (credentials) => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/login`, {
@@ -46,7 +43,6 @@ export const loginUser = async (credentials) => {
     const data = await response.json();
     
     if (data.success) {
-      // Store token and user data
       localStorage.setItem('token', data.token);
       localStorage.setItem('user', JSON.stringify(data.user));
       return data;
@@ -57,7 +53,6 @@ export const loginUser = async (credentials) => {
   }
 };
 
-// Get current user profile
 export const getCurrentUser = async () => {
   try {
     const response = await fetch(`${API_BASE_URL}/auth/me`, {
@@ -70,7 +65,6 @@ export const getCurrentUser = async () => {
   }
 };
 
-// Logout user
 export const logoutUser = () => {
   localStorage.removeItem('token');
   localStorage.removeItem('user');

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
-import { useState, useRef, useEffect } from "react"
-import { loginUser, getCurrentUser } from "../services/authService.js";
+import { useState, useRef } from "react"
+import { loginUser } from "../services/authService.js";
 import UserProfile from "../components/User.jsx";
 
 export default function LoginPage({ loggedIn, onLoginChange }) {

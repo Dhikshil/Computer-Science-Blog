@@ -1,4 +1,5 @@
 import { logoutUser } from "../services/authService"
+import CreateArticle from "./CreateArticle";
 
 export default function UserProfile({loggedIn, onLoginChange}) {
 
@@ -16,6 +17,7 @@ export default function UserProfile({loggedIn, onLoginChange}) {
             <div className="flex justify-end">
                 <button className=" mt-4 px-4 py-2 bg-blue-500 text-white rounded-xl shadow hover:bg-blue-600 transition hover:text-gray-300" onClick={logUserOut}>Log out</button>
             </div>
+            {userData.role==="admin"?(<CreateArticle />):null}
         </main>
     )
 }

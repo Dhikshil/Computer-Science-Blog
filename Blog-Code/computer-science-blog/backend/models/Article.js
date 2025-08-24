@@ -17,7 +17,7 @@ const articleSchema = new mongoose.Schema(
       type: String,
       required: [true, 'Content is required'],
     },
-    summary: {
+    desc: {
       type: String,
       maxLength: [500, 'Summary cannot exceed 500 characters'],
     },
@@ -44,7 +44,10 @@ const articleSchema = new mongoose.Schema(
       ],
       default: 'Other',
     },
-    featuredImage: {
+    longImage: {
+      type: String,
+    },
+    shortImage: {
       type: String,
     },
   },

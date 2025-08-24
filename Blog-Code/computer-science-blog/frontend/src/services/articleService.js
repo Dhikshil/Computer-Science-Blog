@@ -1,11 +1,10 @@
 import { API_BASE_URL, getAuthToken, createHeaders } from "../config/app";
 
-// Get all articles (public)
+
 export const getAllArticles = async (filters = {}) => {
   try {
     const queryParams = new URLSearchParams();
     
-    // Add filters to query params
     if (filters.page) queryParams.append('page', filters.page);
     if (filters.limit) queryParams.append('limit', filters.limit);
     if (filters.search) queryParams.append('search', filters.search);
@@ -19,7 +18,6 @@ export const getAllArticles = async (filters = {}) => {
   }
 };
 
-// Get single article by ID
 export const getArticleById = async (articleId) => {
   try {
     const response = await fetch(`${API_BASE_URL}/articles/${articleId}`);
@@ -30,7 +28,6 @@ export const getArticleById = async (articleId) => {
   }
 };
 
-// Create new article (authenticated)
 export const createArticle = async (articleData) => {
   try {
     const response = await fetch(`${API_BASE_URL}/articles`, {
