@@ -4,11 +4,11 @@ import Footer from "../components/Footer.jsx";
 
 import HEADERICONS from  '../../HEADERICONS.jsx'
 
-export default function RootLayout() {
+export default function RootLayout({loggedIn }) {
     return (
         <>
             <div className='min-h-screen min-w-100 bg-gradient-to-br from-gray-900 via-blue-950 to-gray-900 text-white p-8'>
-                <Header actions={HEADERICONS}>Computer Science Blog</Header>
+                <Header actions={HEADERICONS} loggedIn={loggedIn}>Computer Science Blog</Header>
                 <main><Outlet /></main>
             </div>
             <Footer />

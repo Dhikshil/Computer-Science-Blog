@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import HeaderMap from "./HeaderMap";
 
-export default function Header({ children, actions }) {
+export default function Header({ children, actions, loggedIn }) {
     return (
         <nav className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 border-b border-cyan-500/30">
             <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 ">
@@ -12,7 +12,7 @@ export default function Header({ children, actions }) {
                     </h1>
                 </div>
                 <ul className="flex space-x-6">
-                    {actions.map((Item) => <HeaderMap key={Item.title} {...Item} />)}
+                    {actions.map((Item) => <HeaderMap key={Item.title} loggedIn={loggedIn} {...Item} />)}
                 </ul>
             </div>
         </nav>
