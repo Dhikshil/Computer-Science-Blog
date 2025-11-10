@@ -9,13 +9,11 @@ const articleSchema = new mongoose.Schema(
     },
     title: {
       type: String,
-      required: [true, 'Title is required'],
       trim: true,
       maxLength: [200, 'Title cannot exceed 200 characters'],
     },
     content: {
       type: String,
-      required: [true, 'Content is required'],
     },
     desc: {
       type: String,
@@ -26,30 +24,10 @@ const articleSchema = new mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    tags: [
-      {
-        type: String,
-        trim: true,
-      },
-    ],
-    category: {
-      type: String,
-      enum: [
-        'AI',
-        'Machine Learning',
-        'Quantum Computing',
-        'Cybersecurity',
-        'Software Engineering',
-        'Other',
-      ],
-      default: 'Other',
-    },
-    longImage: {
-      type: String,
-    },
-    shortImage: {
-      type: String,
-    },
+    imageLong: Buffer,
+
+    imageShort: Buffer,
+    
   },
   {
     timestamps: true,

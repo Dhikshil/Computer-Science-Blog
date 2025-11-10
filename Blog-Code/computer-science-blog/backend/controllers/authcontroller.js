@@ -84,6 +84,9 @@ export const login = async (req, res, next) => {
         message: 'Invalid credentials' });
     }
 
+    user.isActive = true;
+    await user.save();
+
     // Generate token
     const token = generateToken(user._id);
 

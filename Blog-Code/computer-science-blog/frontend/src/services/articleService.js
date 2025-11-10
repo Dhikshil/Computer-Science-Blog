@@ -30,15 +30,29 @@ export const getArticleById = async (articleId) => {
 
 export const createArticle = async (articleData) => {
   try {
+    const form = new FormData();
+
+    form.append("title", articleData.title);
+    form.append("type", articleData.type);
+    form.append("content", articleData.content);
+    form.append("desc", articleData.desc);
+
+    if (articleData.imageLong) form.append("imageLong", articleData.imageLong);
+    if (articleData.imageShort) form.append("imageShort", articleData.imageShort);
+
+    const token = getAuthToken();
+
     const response = await fetch(`${API_BASE_URL}/articles`, {
-      method: 'POST',
-      headers: createHeaders(true),
-      body: JSON.stringify(articleData)
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      body: form,
     });
-    
+
     return await response.json();
   } catch (error) {
-    throw new Error('Failed to create article: ' + error.message);
+    throw new Error("Failed to create article: " + error.message);
   }
 };
 

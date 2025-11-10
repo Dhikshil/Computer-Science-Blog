@@ -74,13 +74,17 @@ export const getArticle = async (req, res, next) => {
 // @access  Private
 export const createArticle = async (req, res, next) => {
   try {
+    const imageLong = req.files?.imageLong?.[0]?.buffer || null;
+    const imageShort = req.files?.imageShort?.[0]?.buffer || null;
+
     const articleData = {
       ...req.body,
+      imageLong,
+      imageShort,
       author: req.user._id
     };
 
     const article = await Article.create(articleData);
-    await article.populate('author', 'name email');
 
     res.status(201).json({
       success: true,

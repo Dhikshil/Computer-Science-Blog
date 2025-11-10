@@ -1,5 +1,7 @@
 import { useRef, useState } from "react"
 
+import { createArticle } from "../services/articleService";
+
 export default function CreateArticle() {
     const [errors, setErrors] = useState([]);
 
@@ -12,7 +14,8 @@ export default function CreateArticle() {
     const articleLongImg = useRef();
     const articleShortImg = useRef();
 
-    function formSubmit(event) {
+    async function formSubmit(event) {
+        console.log("Started process")
         event.preventDefault();
 
         setErrors([]);
@@ -22,38 +25,64 @@ export default function CreateArticle() {
         let articleContentValue = articleContent.current.value;
         let articleDescValue = articleDesc.current.value;
 
+        
         if (articleTitleValue.length < 10 || articleTitleValue.length > 100) {
             setErrors((prevErrors) => [...prevErrors, "Article Title is not the right length, must be between 10 and 100 characters long!"]);
+            console.log("error")
             return
         };
-        if (articleCategoryValue.length < 20 || articleCategoryValue.length > 50) {
+        if (articleCategoryValue.length < 5 || articleCategoryValue.length > 50) {
             setErrors((prevErrors) => [...prevErrors, "Article type must be between 20 and 50 characters long"]);
+            console.log("error")
             return
         };
         if (articleContentValue.length < 500 || articleContentValue.length > 5000) {
             setErrors((prevErrors) => [...prevErrors, "Article content is not the right length, must be between 500 and 5000 characters long!"]);
+            console.log("error")
             return
         };
         if (articleDescValue.length < 10 || articleDescValue.length > 100) {
             setErrors((prevErrors) => [...prevErrors, "Article Description is not the right length, mus be between 10 and 100 characters long!"]);
+            console.log("error")
             return
         };
 
         const maxSizeMB = 5;
-        if (longImageFile.size > maxSizeMB * 1024 * 1024) {
+        if (articleLongImg.current.files[0].size > maxSizeMB * 1024 * 1024) {
             setErrors(prev => [...prev, `Long image must be smaller than ${maxSizeMB}MB`]);
+            console.log("error")
             return;
-        }
-        if (shortImageFile.size > maxSizeMB * 1024 * 1024) {
+        };
+        if (articleShortImg.current.files[0].size > maxSizeMB * 1024 * 1024) {
             setErrors(prev => [...prev, `Short image must be smaller than ${maxSizeMB}MB`]);
+            console.log("error")
             return;
-        }
+        };
 
         let articleDate = new Date();
-        let author = userData.name;
+        let articleAuthor = userData.name;
+        
+        const articleData = {
+            title: articleTitleValue,
+            type: articleCategoryValue,
+            author: articleAuthor,
+            content: articleContentValue,
+            desc: articleDescValue,
+            date: articleDate,
+            imageLong: articleLongImg.current.files[0],
+            imageShort: articleShortImg.current.files[0],
+        };
 
+        console.log("set article data, no errors")
+        const data = await createArticle(articleData)
+        if (!data.success) {
+            console.log(data.message);
+            setErrors((prevItems => [...prevItems, data.message]));
+            console.log(errors);
+            return;
+        };
 
-
+        console.log("Published Article")
     }
 
     return (
@@ -132,7 +161,7 @@ export default function CreateArticle() {
                         type="submit"
                         className="px-4 py-2 bg-blue-500 text-white rounded-xl shadow hover:bg-blue-600 transition hover:text-gray-300"
                     >
-                        Submit
+                        Publish
                     </button>
                 </div>
             </div>

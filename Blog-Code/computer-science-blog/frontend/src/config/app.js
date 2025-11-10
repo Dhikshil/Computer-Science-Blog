@@ -3,6 +3,7 @@ export const API_BASE_URL = 'http://localhost:5000/api'; // Change to your backe
 
 // Helper function to get auth token from localStorage
 export const getAuthToken = () => {
+  console.log(localStorage.getItem('token'));
   return localStorage.getItem('token');
 };
 
