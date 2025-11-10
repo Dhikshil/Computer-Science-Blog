@@ -101,6 +101,25 @@ export const login = async (req, res, next) => {
   }
 };
 
+// @desc    Logout user
+// @route   POST /api/auth/logout
+// @access  Private
+export const logout = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.user._id);
+
+    user.isActive = false;
+    await user.save();
+
+    res.status(200).json({
+      success: true,
+      message: 'Logout successful',
+    });
+  } catch (error) {
+    next(error)
+  }
+}
+
 // @desc    Get current user
 // @route   GET /api/auth/me
 // @access  Private

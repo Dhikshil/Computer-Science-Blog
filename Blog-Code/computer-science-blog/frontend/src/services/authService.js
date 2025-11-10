@@ -65,7 +65,26 @@ export const getCurrentUser = async () => {
   }
 };
 
-export const logoutUser = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('user');
+export const logoutUser = async () => {
+  try {
+    const token = localStorage.getItem('token');
+
+    const response = await fetch(`${API_BASE_URL}/auth/logout`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+
+    const data = await response.json();
+
+    if (data.success) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user');
+      console.log("Logged out")
+    };
+    
+  } catch (error) {
+    console.log(error)
+  };
 };
