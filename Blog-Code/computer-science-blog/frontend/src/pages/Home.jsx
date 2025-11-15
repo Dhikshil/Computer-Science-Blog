@@ -25,7 +25,7 @@ export default function HomePage() {
 
       {orderedArticles.forEach((article, index) => {
         if (index === 0) {
-        } else if (index < 6) {
+        } else if (index < 6) { // 6 represents the latest number of articles that are being shown
           sectionArticles.push(article)
         }
       })}

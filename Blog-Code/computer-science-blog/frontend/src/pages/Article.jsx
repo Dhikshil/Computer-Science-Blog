@@ -9,13 +9,21 @@ import DisplayCommentForm from "../components/DisplayCommentForm.jsx";
 export default function ArticlePage() {
     const params = useParams();
 
-    const [newComment, setNewComment] = useState(true);
+    let article = {}
 
-    const article = ARTICLES[Number(params.articleId) - 1];
+    for (const index in ARTICLES) {
+        if (ARTICLES[index].id === params.articleId){
+            article = ARTICLES[index]
+        }
+    }
+    
+    /*
+    const [newComment, setNewComment] = useState(true);
 
     const inputCommentName = useRef();
     const inputCommentComment = useRef();
     const inputCommentRating = useRef();
+
 
     function formSubmit(event) {
         event.preventDefault();
@@ -46,28 +54,26 @@ export default function ArticlePage() {
             setNewComment(true);
         }
     }
+        */
     return(
-        <h1>ARTICLE</h1>
-        /*
         <main className="max-w-4xl mx-auto mt-8 text-left"> 
             <section className="my-8">
                 <h1 className="mb-3 text-center font-semibold">{article.name}</h1>
                 <div className="max-w-4xl mb-5">
                     <p className="text-[1.15rem] text-gray-200 ">{article.desc}</p>
-                    
                 </div>
                 <img src={article.imgLong} className="min-w-full mb-4 mx-auto" />
                 <p>{article.content}</p>
-                <p className="text-[0.95rem] mt-3 text-gray-200">{article.author} | {article.date}</p>
+                <p className="text-[0.95rem] mt-3 text-gray-200">{article.author} | {article.date.toISOString().split("T")[0]}</p>
             </section>
-            
+        </main>
+    );
+};
+
+/*
             <p className="font-semibold text-[1.45rem]">COMMENTS</p>
-            
             <section className="mt-4">
                 <DisplayCommentForm formSubmit={formSubmit} inputCommentName={inputCommentName} inputCommentComment={inputCommentComment} inputCommentRating={inputCommentRating} />
                 <DisplayComment article={article} newComment={newComment} setNewComment={setNewComment} />
             </section>
-        </main>
-        */
-    );
-};
+*/

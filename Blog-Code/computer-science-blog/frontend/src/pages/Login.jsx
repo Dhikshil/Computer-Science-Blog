@@ -27,10 +27,8 @@ export default function LoginPage({ loggedIn, onLoginChange }) {
         setErrors((prevErrors) => [...prevErrors, data.message]);
         return;
        }
-
        console.log("Logged in")
        onLoginChange(true);
-
     }
 
     return (
