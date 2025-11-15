@@ -13,10 +13,6 @@ export default function ArticlePage() {
 
     const article = ARTICLES[Number(params.articleId) - 1];
 
-
-
-    const ratings = [];
-
     const inputCommentName = useRef();
     const inputCommentComment = useRef();
     const inputCommentRating = useRef();

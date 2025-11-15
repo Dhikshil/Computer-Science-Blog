@@ -8,36 +8,33 @@ export const getArticles = async (req, res, next) => {
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const skip = (page - 1) * limit;
-    
-    const filter = { type: 'article', status: 'published' };
-    
-    // Add search functionality
-    if (req.query.search) {
-      filter.$text = { $search: req.query.search };
-    }
-    
-    // Add category filter
-    if (req.query.category) {
-      filter.category = req.query.category;
-    }
 
-    const articles = await Article.find(filter)
+    const articles = await Article.find({})
       .populate('author', 'name email')
       .skip(skip)
       .limit(limit)
       .sort({ createdAt: -1 });
 
-    const total = await Article.countDocuments(filter);
+    const total = await Article.countDocuments();
+
+    
+    const formattedArticles = articles.map(article => ({
+      ...article.toObject(),
+      imageLong: article.imageLong
+        ? `data:image/jpeg;base64,${article.imageLong.toString('base64')}`
+        : null,
+      imageShort: article.imageShort
+        ? `data:image/jpeg;base64,${article.imageShort.toString('base64')}`
+        : null
+    }));
 
     res.status(200).json({
       success: true,
-      articles,
-      pagination: {
-        page,
-        limit,
-        total,
-        pages: Math.ceil(total / limit)
-      }
+      total,
+      count: formattedArticles.length,
+      page,
+      totalPages: Math.ceil(total / limit),
+      articles: formattedArticles
     });
   } catch (error) {
     next(error);

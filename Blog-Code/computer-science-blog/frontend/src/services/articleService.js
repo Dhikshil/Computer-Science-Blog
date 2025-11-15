@@ -12,7 +12,9 @@ export const getAllArticles = async (filters = {}) => {
     
     const response = await fetch(`${API_BASE_URL}/articles?${queryParams}`);
     
-    return await response.json();
+    const data = await response.json();
+
+    return data.articles    
   } catch (error) {
     throw new Error('Failed to fetch articles: ' + error.message);
   }
