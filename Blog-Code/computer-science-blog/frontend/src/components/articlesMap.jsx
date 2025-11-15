@@ -8,7 +8,7 @@ export default function ArticlesMap({ article }) {
                     <h2>{article.name}</h2>
                     <p className="text-[0.9rem]">{article.desc}</p>
                     <div className='mt-auto'>
-                        <p className='text-[0.7rem]'>{article.author} | {article.date}</p>
+                        <p className='text-[0.7rem]'>{article.author} | {article.date.toISOString().split("T")[0]}</p>
                     </div>
                 </div>
                 <img src={article.imgShort} alt={article.name} className="w-1/8 object-cover h-24" />

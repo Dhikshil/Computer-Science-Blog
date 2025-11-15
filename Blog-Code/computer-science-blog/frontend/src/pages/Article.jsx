@@ -47,6 +47,8 @@ export default function ArticlePage() {
         }
     }
     return(
+        <h1>ARTICLE</h1>
+        /*
         <main className="max-w-4xl mx-auto mt-8 text-left"> 
             <section className="my-8">
                 <h1 className="mb-3 text-center font-semibold">{article.name}</h1>
@@ -66,5 +68,6 @@ export default function ArticlePage() {
                 <DisplayComment article={article} newComment={newComment} setNewComment={setNewComment} />
             </section>
         </main>
+        */
     );
 };

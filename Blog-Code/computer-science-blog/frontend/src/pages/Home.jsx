@@ -1,34 +1,31 @@
 import { Link } from 'react-router-dom';
-import { useMemo } from 'react';
 
 import ARTICLES from '../../ARTICLES.js'
 
 export default function HomePage() {
 
-  const reversedArticles = useMemo(() => {
-      return [...ARTICLES].reverse();
-  }, [ARTICLES]);
+  const orderedArticles = ARTICLES.sort((a, b) => b.date - a.date)
 
   const sectionArticles = [];
 
+  console.log(orderedArticles)
 
   return (
     <main className="max-w-4xl mx-auto text-center mt-16">
-      {reversedArticles.map((article) => {
-        if (article.id === ARTICLES.length) {
-          return (
-            <Link to={`/search/${article.id}`} key={article.id} className='flex m-1 p-1 border-b-1 pb-2 border-gray-600 hover:border-gray-100 hover:m-0'>
-              <div className='flex flex-col justify-between text-left'>
-                <h1>{article.name}</h1>
-                <p>{article.desc}</p>
-                <div>
-                  <p>{article.author} | {article.date}</p>
-                </div>
-              </div>
-              <img src={article.imgLong} className='max-w-2/3' />
-            </Link>
-          )
-        } else if (article.id > ARTICLES.length - 6) {
+      <Link to={`/search/${orderedArticles[0].id}`} key={orderedArticles[0].id} className='flex m-1 p-1 border-b-1 pb-2 border-gray-600 hover:border-gray-100'>
+        <div className='flex flex-col justify-between text-left'>
+          <h1>{orderedArticles[0].name}</h1>
+          <p>{orderedArticles[0].desc}</p>
+          <div>
+            <p>{orderedArticles[0].author} | {orderedArticles[0].date.toISOString().split("T")[0]}</p>
+          </div>
+        </div>
+        <img src={orderedArticles[0].imgLong} className='max-w-2/3' />
+      </Link>
+
+      {orderedArticles.forEach((article, index) => {
+        if (index === 0) {
+        } else if (index < 6) {
           sectionArticles.push(article)
         }
       })}
@@ -43,7 +40,7 @@ export default function HomePage() {
                     <p className='text-[0.65rem] mb-3'>{article.desc}</p>
                   </div>
                   <div className='mt-auto'>
-                    <p className='text-[0.7rem]'>{article.author} | {article.date}</p>
+                    <p className='text-[0.7rem]'>{article.author} | {article.date.toISOString().split("T")[0]}</p>
                   </div>
                 </div>
               </Link>

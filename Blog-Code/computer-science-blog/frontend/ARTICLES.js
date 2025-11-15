@@ -10,7 +10,7 @@ const ARTICLES = articlesArray.map(article => ({
   author: article.author?.name || article.author,
   content: article.content,
   desc: article.desc,
-  date: new Date(article.updatedAt).toISOString().split("T")[0],
+  date: new Date(article.updatedAt),
   imgLong: article.imageLong,
   imgShort: article.imageShort,
 }));
